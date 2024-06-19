@@ -1,0 +1,28 @@
+<section class="task-page">
+	<h1 class="task-page__title">Lista de tareas</h1>
+	<form [formGroup]="taskForm" class="task-page__form" (ngSubmit)="createTask()">
+		<mat-form-field appearance="outline">
+			<mat-label>Tarea</mat-label>
+			<input matInput formControlName="name" />
+		</mat-form-field>
+
+		<button mat-raised-button color="primary">Agregar</button>
+	</form>
+
+	@if (loading) {
+        <mat-spinner></mat-spinner>
+    }
+    @else {
+        <mat-list class="task-page__list">
+
+            @if(listTasks.length === 0){
+                <mat-list-item class="task-page__list__item">No hay tareas</mat-list-item>
+            }
+            @else{
+                @for (task of listTasks; track task.id){
+                    <mat-list-item class="task-page__list__item">{{ task.name }}</mat-list-item>
+                }
+            }
+        </mat-list>
+    }
+</section>
