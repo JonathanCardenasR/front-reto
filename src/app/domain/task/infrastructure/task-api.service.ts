@@ -10,7 +10,7 @@ import { ITaskApiService } from './task-api.interface';
 export class TaskApiService implements ITaskApiService{
 
   private _http = inject(HttpClient);
-  private readonly URL_TASKS =  environment.backend + '/tasks';
+  private readonly URL_TASKS =  environment.backend + '/task';
 
   getTasks(): Observable<IDomainResponseTask[]>{
     return this._http.get<IApiResponseTask[]>(this.URL_TASKS).pipe(
@@ -19,10 +19,6 @@ export class TaskApiService implements ITaskApiService{
           id: taskApi.id,
           name: taskApi.name,
           state: taskApi.state,
-          created: taskApi.created,
-          updated: taskApi.updated,
-          completed: taskApi.completed,
-          deleted: taskApi.deleted
         }))
       )
     );
@@ -34,9 +30,9 @@ export class TaskApiService implements ITaskApiService{
       .pipe(map((response)=>({ message: response.message, code: response.code})))
   }
 
-  updateTask(task: IDomainResponseTask): Observable<IDomainResponse>{
+  updateTask(task: IDomainResponseTask, id:number): Observable<IDomainResponse>{
     return this._http
-      .put<IApiResponse>(this.URL_TASKS, task)
+      .put<IApiResponse>(`${this.URL_TASKS}/${id}`, task)
       .pipe(map((response)=>({ message: response.message, code: response.code})))
   }
 

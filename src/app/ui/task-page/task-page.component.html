@@ -20,7 +20,12 @@
             }
             @else{
                 @for (task of listTasks; track task.id){
-                    <mat-list-item class="task-page__list__item">{{ task.name }}</mat-list-item>
+                    <mat-list-item class="task-page__list__item">
+                        <mat-checkbox [checked]="task.state" (change)="changeTaskState(task,task.id)">
+                            {{task.name}}
+                        </mat-checkbox>
+                        {{ task.name }}
+                    </mat-list-item>
                 }
             }
         </mat-list>

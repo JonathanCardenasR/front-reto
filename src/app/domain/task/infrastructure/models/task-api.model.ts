@@ -5,10 +5,6 @@ export interface IApiRequestTask{
 
 export interface IApiResponseTask extends IApiRequestTask{
     readonly id: number;
-    readonly created: string;
-    readonly updated: string;
-    readonly completed: string;
-    readonly deleted: string;
 }
 
 export interface IApiResponse{

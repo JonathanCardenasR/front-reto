@@ -15,7 +15,7 @@ export class TaskUseCaseService{
     @Inject(HTTP_TASK_SERVICE) private _taskApiService: ITaskApiService
   ) { }
 
-  getTasks(){
+  getTasks() : Observable<IDomainResponseTask[]>{
     return this._taskApiService.getTasks();
   }
 
@@ -24,9 +24,9 @@ export class TaskUseCaseService{
     return this._taskApiService.createTask(newTask);
   }
 
-  updateTask(task:IDomainResponseTask): Observable<IDomainResponse>{
+  updateTask(task:IDomainResponseTask,id:number): Observable<IDomainResponse>{
     // Logica de negocio
-    return this._taskApiService.updateTask(task);
+    return this._taskApiService.updateTask(task,id);
   }
 
   deleteTask(id:number): Observable<IDomainResponse>{

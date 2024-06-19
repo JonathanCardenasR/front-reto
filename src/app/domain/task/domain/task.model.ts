@@ -5,10 +5,7 @@ export interface IDomainRequestTask{
 export interface IDomainResponseTask extends IDomainRequestTask{
     id: number;
     state: boolean;
-    created: string;
-    updated: string;
-    completed: string;
-    deleted: string;
+    name: string;
 }
 
 export interface IDomainResponse{

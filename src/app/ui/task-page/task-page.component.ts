@@ -7,9 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { TaskUseCaseService } from '../../domain/task/application/task-use-case.service';
-import { IDomainRequestTask, IDomainResponseTask } from '../../domain/task/domain/task.model';
+import { IDomainResponseTask } from '../../domain/task/domain/task.model';
 import { finalize } from 'rxjs';
 
 
@@ -25,6 +26,7 @@ import { finalize } from 'rxjs';
 		MatListModule,
 		MatButtonModule,
 		MatInputModule,
+    MatCheckboxModule,
   ],
   templateUrl: './task-page.component.html',
   styleUrl: './task-page.component.css'
@@ -68,10 +70,23 @@ export class TaskPageComponent {
     }
   }
 
+  changeTaskState(task: IDomainResponseTask,id:number) {
+    this._taskUseCaseService
+    .updateTask({...task, state: !task.state},id)
+    .subscribe({
+      next: () => {
+        console.log("Task state changed");
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
   updateTask(task: IDomainResponseTask) {
     this.loading = true;
     this._taskUseCaseService
-    .updateTask(task)
+    .updateTask(task,task.id)
     .pipe( finalize(() => {this.loading = false;}))
     .subscribe({
       next: () => {

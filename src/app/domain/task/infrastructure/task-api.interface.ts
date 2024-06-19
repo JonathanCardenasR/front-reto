@@ -4,6 +4,6 @@ import { IDomainRequestTask, IDomainResponse, IDomainResponseTask } from "../dom
 export interface ITaskApiService {
     getTasks(): Observable<IDomainResponseTask[]>;
     createTask(task: IDomainRequestTask): Observable<IDomainResponse>;
-    updateTask(task: IDomainResponseTask): Observable<IDomainResponse>;
+    updateTask(task: IDomainResponseTask,id:number): Observable<IDomainResponse>;
     deleteTask(id: number): Observable<IDomainResponse>;
 }
