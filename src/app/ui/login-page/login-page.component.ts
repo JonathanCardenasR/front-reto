@@ -5,6 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserUseCaseService } from '../../domain/user/application/user-use-case.service';
+import { AuthService } from '../../infrastructure/auth.services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -23,6 +25,7 @@ export class LoginPageComponent {
 
   private _formBuilder = inject(FormBuilder);
   private _userUseCaseService = inject(UserUseCaseService);
+  private _router = inject(Router);
 
   userForm = this._formBuilder.nonNullable.group({
     username: ['', [Validators.required]],
@@ -34,8 +37,11 @@ export class LoginPageComponent {
       this._userUseCaseService
         .signIn(this.userForm.getRawValue())
         .subscribe({
-          next: () => {
-            console.log("User signed in");
+          next: (response) => {
+            localStorage.setItem('token-reto', response.token);
+            localStorage.setItem('username-reto', response.username);
+            localStorage.setItem('id-reto', `${response.id}`);
+            this._router.navigate(['task']);
           },
           error: (error) => {
             console.log("Error signing in", error);

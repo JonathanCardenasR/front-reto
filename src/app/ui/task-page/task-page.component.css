@@ -1,0 +1,10 @@
+.task-page__list__item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.mat-icon{
+    vertical-align: middle;
+}

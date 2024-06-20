@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatIconModule} from '@angular/material/icon';
 
 import { TaskUseCaseService } from '../../domain/task/application/task-use-case.service';
 import { IDomainResponseTask } from '../../domain/task/domain/task.model';
@@ -27,6 +28,7 @@ import { finalize } from 'rxjs';
 		MatButtonModule,
 		MatInputModule,
     MatCheckboxModule,
+    MatIconModule
   ],
   templateUrl: './task-page.component.html',
   styleUrl: './task-page.component.css'
@@ -34,6 +36,9 @@ import { finalize } from 'rxjs';
 export class TaskPageComponent {
   private _formBuilder = inject(FormBuilder);
   private _taskUseCaseService = inject(TaskUseCaseService);
+
+  username = localStorage.getItem('username-reto');
+  private userId = parseInt(localStorage.getItem('id-reto')!);
 
   taskForm = this._formBuilder.nonNullable.group({
     name: ['', [Validators.required]],
@@ -51,10 +56,8 @@ export class TaskPageComponent {
   createTask() {
 
     if (this.taskForm.valid) {
-      this.loading = true;
       this._taskUseCaseService
-      .createTask(this.taskForm.getRawValue())
-      .pipe( finalize(() => {this.loading = false;}))
+      .createTask(this.taskForm.getRawValue(),this.userId)
       .subscribe({
         next: () => {
           console.log("Task created");
@@ -63,9 +66,6 @@ export class TaskPageComponent {
         error: (error) => {
           console.error(error);
         },
-        complete: () => {
-          this.loading = false;
-        }
       });
     }
   }
@@ -76,6 +76,7 @@ export class TaskPageComponent {
     .subscribe({
       next: () => {
         console.log("Task state changed");
+        this._loadTasks();
       },
       error: (error) => {
         console.error(error);
@@ -84,10 +85,8 @@ export class TaskPageComponent {
   }
 
   updateTask(task: IDomainResponseTask) {
-    this.loading = true;
     this._taskUseCaseService
     .updateTask(task,task.id)
-    .pipe( finalize(() => {this.loading = false;}))
     .subscribe({
       next: () => {
         console.log("Task updated");
@@ -100,10 +99,8 @@ export class TaskPageComponent {
   }
 
   deleteTask(id: number) {
-    this.loading = true;
     this._taskUseCaseService
     .deleteTask(id)
-    .pipe( finalize(() => {this.loading = false;}))
     .subscribe({
       next: () => {
         console.log("Task deleted");
@@ -118,7 +115,7 @@ export class TaskPageComponent {
   private _loadTasks() {
     this.loading = true;
     this._taskUseCaseService
-    .getTasks()
+    .getTasks(this.userId)
     .pipe( finalize(() => {this.loading = false;}))
     .subscribe({
       next: (tasks) => {

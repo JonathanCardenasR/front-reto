@@ -1,5 +1,6 @@
 <section class="task-page">
 	<h1 class="task-page__title">Lista de tareas</h1>
+    <h3 class="task-page__subtitle">Esta es tu lista de tareas {{username}}</h3>
 	<form [formGroup]="taskForm" class="task-page__form" (ngSubmit)="createTask()">
 		<mat-form-field appearance="outline">
 			<mat-label>Tarea</mat-label>
@@ -24,7 +25,9 @@
                         <mat-checkbox [checked]="task.state" (change)="changeTaskState(task,task.id)">
                             {{task.name}}
                         </mat-checkbox>
-                        {{ task.name }}
+                        @if (!task.state) {
+                            <mat-icon aria-hidden="false" fontIcon="delete" style="cursor: pointer;" (click)="deleteTask(task.id)"></mat-icon>
+                        }
                     </mat-list-item>
                 }
             }
