@@ -14,6 +14,7 @@ import { TaskUseCaseService } from '../../domain/task/application/task-use-case.
 import { IDomainResponseTask } from '../../domain/task/domain/task.model';
 import { finalize } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
+import { AphaNumericOnlyDirective } from '../../infrastructure/directives/alpha-numeric-only.directive';
 
 
 @Component({
@@ -30,10 +31,11 @@ import { MatCardModule } from '@angular/material/card';
 		MatInputModule,
     MatCheckboxModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    AphaNumericOnlyDirective
   ],
   templateUrl: './task-page.component.html',
-  styleUrl: './task-page.component.css'
+  styleUrl: './task-page.component.css',
 })
 export class TaskPageComponent {
   private _formBuilder = inject(FormBuilder);
@@ -62,7 +64,6 @@ export class TaskPageComponent {
       .createTask(this.taskForm.getRawValue(),this.userId)
       .subscribe({
         next: () => {
-          console.log("Task created");
           this._loadTasks();
         },
         error: (error) => {
@@ -77,7 +78,6 @@ export class TaskPageComponent {
     .updateTask({...task, state: !task.state},id)
     .subscribe({
       next: () => {
-        console.log("Task state changed");
         this._loadTasks();
       },
       error: (error) => {
@@ -91,7 +91,6 @@ export class TaskPageComponent {
     .updateTask(task,task.id)
     .subscribe({
       next: () => {
-        console.log("Task updated");
         this._loadTasks();
       },
       error: (error) => {
@@ -105,7 +104,6 @@ export class TaskPageComponent {
     .deleteTask(id)
     .subscribe({
       next: () => {
-        console.log("Task deleted");
         this._loadTasks();
       },
       error: (error) => {
