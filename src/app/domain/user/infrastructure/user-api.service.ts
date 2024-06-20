@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../../../environments/environment.dev';
+import { environment } from '../../../../environments/environment';
 import { Observable,map } from 'rxjs';
 import { IUserApiService } from './user-api.interface';
 import { IDomainRequestUser, IDomainResponse, IDomainResponseUser } from '../domain/user.model';

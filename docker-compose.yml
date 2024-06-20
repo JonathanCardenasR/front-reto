@@ -1,0 +1,13 @@
+services:
+  web:
+    container_name: front-reto
+    build: .
+    image: front-reto:latest
+    ports:
+      - "80:80"
+    networks:
+      - internalnetwork
+
+networks:
+  internalnetwork:
+    driver: bridge

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../../../environments/environment.dev';
+import { environment } from '../../../../environments/environment';
 import { Observable,map } from 'rxjs';
 import { IDomainRequestTask, IDomainResponse, IDomainResponseTask } from '../domain/task.model';
 import { IApiResponse, IApiResponseTask } from './models/task-api.model';
