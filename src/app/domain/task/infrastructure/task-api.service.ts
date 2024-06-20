@@ -5,7 +5,6 @@ import { Observable,map } from 'rxjs';
 import { IDomainRequestTask, IDomainResponse, IDomainResponseTask } from '../domain/task.model';
 import { IApiResponse, IApiResponseTask } from './models/task-api.model';
 import { ITaskApiService } from './task-api.interface';
-import { AuthService } from '../../../infrastructure/auth.services';
 
 @Injectable()
 export class TaskApiService implements ITaskApiService{

@@ -5,8 +5,6 @@ import { Observable,map } from 'rxjs';
 import { IUserApiService } from './user-api.interface';
 import { IDomainRequestUser, IDomainResponse, IDomainResponseUser } from '../domain/user.model';
 import { IApiResponse, IApiResponseUser } from './models/user-api.model';
-import { AuthService } from '../../../infrastructure/auth.services';
-
 
 @Injectable()
 export class UserApiService implements IUserApiService{
@@ -14,7 +12,6 @@ export class UserApiService implements IUserApiService{
   private _http = inject(HttpClient);
   private readonly URL_USER =  environment.backend + '/users';
   private readonly URL_AUTH =  environment.backend + '/auth';
-
 
 
   getUsers(): Observable<IDomainResponseUser[]>{
