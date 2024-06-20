@@ -1,36 +1,48 @@
 <section class="task-page">
 	<h1 class="task-page__title">Lista de tareas</h1>
     <h3 class="task-page__subtitle">Esta es tu lista de tareas {{username}}</h3>
-	<form [formGroup]="taskForm" class="task-page__form" (ngSubmit)="createTask()">
-		<mat-form-field appearance="outline">
-			<mat-label>Tarea</mat-label>
-			<input matInput formControlName="name" />
-		</mat-form-field>
+    <div class="task-page__content">
+        <form [formGroup]="taskForm" class="task-page__form" (ngSubmit)="createTask()">
+            <mat-form-field appearance="outline">
+                <mat-label>Tarea</mat-label>
+                <input matInput formControlName="name" />
+            </mat-form-field>
+    
+            <button mat-raised-button color="primary">Agregar</button>
+        </form>
 
-		<button mat-raised-button color="primary">Agregar</button>
-	</form>
-
-	@if (loading) {
-        <mat-spinner></mat-spinner>
-    }
-    @else {
-        <mat-list class="task-page__list">
-
-            @if(listTasks.length === 0){
-                <mat-list-item class="task-page__list__item">No hay tareas</mat-list-item>
-            }
-            @else{
-                @for (task of listTasks; track task.id){
-                    <mat-list-item class="task-page__list__item">
-                        <mat-checkbox [checked]="task.state" (change)="changeTaskState(task,task.id)">
-                            {{task.name}}
-                        </mat-checkbox>
-                        @if (!task.state) {
-                            <mat-icon aria-hidden="false" fontIcon="delete" style="cursor: pointer;" (click)="deleteTask(task.id)"></mat-icon>
-                        }
-                    </mat-list-item>
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                @if (loading) {
+                    <mat-spinner></mat-spinner>
                 }
-            }
-        </mat-list>
-    }
+                @else {
+                    <mat-list class="task-page__list">
+            
+                        @if(listTasks.length === 0){
+                            <mat-list-item class="task-page__list__item">No hay tareas</mat-list-item>
+                        }
+                        @else{
+                            @for (task of listTasks; track task.id){
+                                <mat-list-item class="task-page__list__item">
+                                    <mat-checkbox [checked]="task.state" (change)="changeTaskState(task,task.id)">
+                                        {{task.name}}
+                                    </mat-checkbox>
+                                    @if (!task.state) {
+                                        <mat-icon aria-hidden="false" fontIcon="delete" style="cursor: pointer;" (click)="deleteTask(task.id)"></mat-icon>
+                                    }
+                                </mat-list-item>
+                            }
+                        }
+                    </mat-list>
+                }
+
+            </mat-card-content>
+        </mat-card>
+          
+    
+       
+
+    </div>
+
 </section>

@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { TaskUseCaseService } from '../../domain/task/application/task-use-case.service';
 import { IDomainResponseTask } from '../../domain/task/domain/task.model';
 import { finalize } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
@@ -28,7 +29,8 @@ import { finalize } from 'rxjs';
 		MatButtonModule,
 		MatInputModule,
     MatCheckboxModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   templateUrl: './task-page.component.html',
   styleUrl: './task-page.component.css'
