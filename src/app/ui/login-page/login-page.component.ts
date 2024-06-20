@@ -5,7 +5,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserUseCaseService } from '../../domain/user/application/user-use-case.service';
-import { AuthService } from '../../infrastructure/auth.services';
 import { Router } from '@angular/router';
 
 @Component({
