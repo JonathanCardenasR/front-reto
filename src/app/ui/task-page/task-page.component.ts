@@ -65,6 +65,7 @@ export class TaskPageComponent {
       .subscribe({
         next: () => {
           this._loadTasks();
+          this.taskForm.reset();
         },
         error: (error) => {
           console.error(error);
